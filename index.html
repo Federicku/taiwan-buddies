@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taiwan Buddies 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>
+(function(){var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75,700;75,800;75,900&family=Atkinson+Hyperlegible:wght@400;700&display=swap";document.head.appendChild(l);})();
+</script>
+<style>
+:root{
+  --bg:#EDF1F0; --surface:#FFFFFF; --ink:#16202B; --muted:#56636F; --rule:#D3DADD; --chip:#E3E9EA;
+  --ok:#00805A; --warn-bg:#FFF4DC; --warn-ink:#7A4B00; --warn-rule:#E8B44C; --brand:#E3002C;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --zh:"PingFang TC","Heiti TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10171D; --surface:#18222A; --ink:#E7ECEF; --muted:#9CA9B3; --rule:#2A3740; --chip:#23303A;
+    --ok:#3CC08A; --warn-bg:#3A2C10; --warn-ink:#F6D58C; --warn-rule:#8A6420; --brand:#FF4A63; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10171D; --surface:#18222A; --ink:#E7ECEF; --muted:#9CA9B3; --rule:#2A3740; --chip:#23303A;
+  --ok:#3CC08A; --warn-bg:#3A2C10; --warn-ink:#F6D58C; --warn-rule:#8A6420; --brand:#FF4A63; color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit} button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid #0070BD;outline-offset:2px;border-radius:6px}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px}
+h2,h3{text-wrap:balance}
+
+.top{padding:18px 0 4px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.top h1{margin:0;font:800 28px/1 var(--display);font-stretch:78%}
+.top p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.count{text-align:right;flex:none}
+.count b{display:block;font:900 42px/.9 var(--display);font-stretch:68%;color:var(--brand)}
+.count span{font-size:13px;color:var(--muted)}
+
+.view{display:none;padding-bottom:112px}
+.view.on{display:block}
+.sec{margin-top:26px}
+.sec > h2{margin:0 0 10px;font:800 22px/1.15 var(--display);font-stretch:85%}
+.sec > p.lead{margin:-4px 0 12px;color:var(--muted);font-size:14px}
+.box{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-rule);border-radius:14px;padding:12px 14px;font-size:15px;margin-top:12px}
+.warn b{display:block;margin-bottom:2px}
+.now{margin-top:12px}
+.now .lbl{font-size:13px;color:var(--muted)} .now .what{font-weight:700} .now .next{font-size:14px;color:var(--muted);margin-top:3px}
+.muted{color:var(--muted)}
+
+/* Boarding pass */
+.pass{background:var(--surface);border:1px solid var(--rule);border-radius:18px;overflow:hidden;margin-bottom:12px}
+.pass .band{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;color:#fff;font-weight:700;font-size:14px}
+.pass .main{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:14px 14px 10px;gap:8px}
+.iata{font:900 46px/.9 var(--display);font-stretch:72%}
+.iata small{display:block;font:400 13px/1.3 var(--body);color:var(--muted);margin-top:4px}
+.main .to{text-align:right}
+.plane{width:44px;height:2px;background:var(--rule);position:relative}
+.plane svg{position:absolute;left:50%;top:50%;width:22px;height:22px;transform:translate(-50%,-50%);background:var(--surface);color:var(--muted);padding:0 2px}
+.pass .facts{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px dashed var(--rule);padding:10px 14px 12px;gap:10px 8px}
+.fact span{display:block;font-size:12px;color:var(--muted)}
+.fact b{font-size:15px}
+.pass .foot{padding:0 14px 12px;display:flex;flex-wrap:wrap;gap:6px}
+
+/* Hotel */
+.hotel{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:14px;margin-bottom:12px;border-left:6px solid var(--c)}
+.hotel h3{margin:0;font:800 19px/1.2 var(--display);font-stretch:90%}
+.hotel .city{font-size:13px;color:var(--muted)}
+.stay{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:12px 0 8px}
+.stay div span{display:block;font-size:12px;color:var(--muted)}
+.stay div b{font-size:15px}
+.stay .nights{font:800 14px/1 var(--display);padding:6px 10px;border-radius:999px;background:var(--chip);white-space:nowrap}
+.stay div:last-child{text-align:right}
+
+.tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--muted);line-height:1.5}
+.tag.paid{border-color:var(--ok);color:var(--ok);font-weight:700}
+.tag.unpaid{border-color:var(--warn-rule);color:var(--warn-ink);background:var(--warn-bg);font-weight:700}
+.tag.s{border-style:dashed}
+.tag.t{border-color:#C9871A;color:#B07513}
+.tag.n{background:var(--c);border-color:var(--c);color:#fff;font-weight:700}
+
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:6px 12px;border-radius:10px;background:var(--chip);border:0;text-decoration:none;font-size:14px;font-weight:700;cursor:pointer}
+.btn .zh{font:800 15px/1 var(--zh)}
+.btn svg{width:16px;height:16px;flex:none}
+.acts{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.reveal{font-variant-numeric:tabular-nums;letter-spacing:.04em}
+
+.crew{display:flex;flex-wrap:wrap;gap:8px}
+.crew span{padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--rule);font-weight:700;font-size:14px}
+
+/* Week overview */
+.week{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.week a{display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:10px 12px;text-decoration:none}
+.week .wd{text-align:center;border-radius:10px;padding:6px 0;color:#fff;background:var(--c);font:800 13px/1.1 var(--display)}
+.week .wd b{display:block;font-size:22px;font-weight:900;font-stretch:75%}
+.week .t{font-weight:700;line-height:1.3}
+.week .s{font-size:13px;color:var(--muted)}
+
+/* Day rail */
+.rail-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0 8px;border-bottom:1px solid var(--rule)}
+.rail{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 16px;max-width:680px;margin:0 auto}
+.rail::-webkit-scrollbar{display:none}
+.stn{flex:none;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:50px}
+.stn .wk{font-size:11px;color:var(--muted);font-weight:700}
+.stn .code{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font:900 18px/1 var(--display);font-stretch:75%;color:#fff;background:var(--c);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--c)}
+.stn .d{font-size:11px;color:var(--muted)}
+.stn[aria-current="true"] .code{box-shadow:0 0 0 4px var(--c)}
+.stn[aria-current="true"] .wk,.stn[aria-current="true"] .d{color:var(--ink)}
+
+.dayhead{padding:18px 0 4px}
+.dayhead .no{font:900 50px/.9 var(--display);font-stretch:66%;color:var(--c)}
+.dayhead h2{margin:6px 0 2px;font:800 24px/1.15 var(--display);font-stretch:90%}
+.dayhead .date{color:var(--muted);font-size:15px}
+.sleep{display:flex;align-items:center;gap:8px;font-size:14px;margin-top:10px;padding:8px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--rule)}
+.sleep svg{width:18px;height:18px;color:var(--c);flex:none}
+.route{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;padding:0;list-style:none}
+.route li{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--chip)}
+.legend{font-size:13px;color:var(--muted);margin:10px 0 4px;display:flex;gap:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%;border:2.5px solid var(--muted);vertical-align:-1px;margin-right:5px}
+.legend i.s{border-style:dashed}
+
+.tl{list-style:none;margin:8px 0 0;padding:0}
+.stop{display:grid;grid-template-columns:26px 1fr;gap:0 10px}
+.when{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;font:800 16px/1.2 var(--display);font-stretch:85%;color:var(--c);margin-bottom:3px}
+.when small{font:700 12px/1.2 var(--body);color:var(--muted)}
+.card .detail{margin-top:8px;padding-top:8px;border-top:1px dashed var(--rule)}
+.line{position:relative}
+.line::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;background:var(--c)}
+.stop:first-child .line::before{top:18px}
+.stop:last-child .line::before{bottom:calc(100% - 22px)}
+.dot{position:absolute;left:50%;top:15px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:var(--surface);border:4px solid var(--c)}
+.stop.sugg .dot{border-style:dashed;border-width:3px;background:var(--bg)}
+.stop.live .dot{background:var(--c)}
+.card{margin:6px 0 10px;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:11px 13px}
+.stop.live .card{border-color:var(--c);box-shadow:inset 4px 0 0 var(--c)}
+.stop.done .card{opacity:.6}
+.card h3{margin:0;font:700 17px/1.3 var(--body)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.card p{margin:7px 0 0;font-size:15px}
+.card ul{margin:7px 0 0;padding-left:18px;font-size:15px}
+
+/* Places */
+.city{margin-top:22px}
+.city h3{margin:0 0 8px;font:800 18px/1.2 var(--display);font-stretch:88%;display:flex;align-items:center;gap:8px}
+.city h3 i{width:12px;height:12px;border-radius:50%;background:var(--c)}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.place{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center}
+.place b{display:block;line-height:1.3}
+.place .zhn{font:500 14px/1.3 var(--zh);color:var(--muted)}
+.place .when{font-size:12px;color:var(--muted)}
+.place .pa{display:flex;gap:6px}
+.place .pa .btn{min-height:40px;padding:6px 10px}
+
+/* Money */
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tot{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px}
+.tot span{display:block;font-size:13px;color:var(--muted)}
+.tot b{font:900 26px/1.1 var(--display);font-stretch:75%;font-variant-numeric:tabular-nums}
+.tot.big{grid-column:1/-1;border-color:var(--ink)}
+.tot.big b{font-size:34px}
+.split{display:flex;height:12px;border-radius:99px;overflow:hidden;margin:10px 0 6px}
+.split div{height:100%}
+.keys{display:flex;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
+.keys i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:0}
+.exp{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.exp li{padding:11px 13px;border-top:1px solid var(--rule);display:grid;grid-template-columns:1fr auto;gap:2px 12px}
+.exp li:first-child{border-top:0}
+.exp .nm{font-weight:700;line-height:1.3}
+.exp .amt{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.exp .sub{font-size:13px;color:var(--muted)}
+.exp .pp{text-align:right;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.exp .tg{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.exp li.total{background:var(--chip)}
+.bal{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.bal li{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:11px 13px;display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:center}
+.bal .who{font-weight:700}
+.bal .st{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.bal .st.owe{color:var(--warn-ink)}
+.bal .st.get{color:var(--ok)}
+.bal .sub{font-size:13px;color:var(--muted);grid-column:1/-1}
+
+/* Checklist */
+.progress{height:8px;border-radius:99px;background:var(--chip);overflow:hidden;margin:6px 0 4px}
+.progress div{height:100%;background:var(--ok);width:0;transition:width .3s}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 13px;cursor:pointer}
+.check input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--ok);flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.check small{display:block;color:var(--muted);font-size:13px}
+.links{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+.links a{display:block;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px 13px;text-decoration:none;font-weight:700}
+.links a span{display:block;font-weight:400;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+
+/* Nav */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--rule);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav div{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 9px;text-decoration:none;font-size:11.5px;color:var(--muted);font-weight:700}
+.nav a svg{width:22px;height:22px}
+.nav a[aria-current="page"]{color:var(--brand)}
+
+.zhbox{position:fixed;inset:0;z-index:20;background:var(--surface);display:none;flex-direction:column;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 24px) 24px calc(env(safe-area-inset-bottom,0px) + 24px);text-align:center}
+.zhbox.on{display:flex}
+.zhbox .big{font:800 clamp(40px,12vw,92px)/1.2 var(--zh);overflow-wrap:anywhere}
+.zhbox .en{margin-top:16px;font-size:18px;color:var(--muted)}
+.zhbox .hint{margin-top:6px;font-size:14px;color:var(--muted)}
+.zhbox button{margin-top:28px;min-width:160px;justify-content:center}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <div>
+    <h1>Taiwan Buddies 2027</h1>
+    <p>Jan 16–25. Kaohsiung, Alishan, Taipei</p>
+  </div>
+  <div class="count" id="count"></div>
+</header>
+
+<div class="rail-wrap" id="railWrap" hidden><nav class="rail" id="rail" aria-label="Trip days"></nav></div>
+
+<main class="wrap">
+  <section class="view" id="v-trip"></section>
+  <section class="view" id="v-day"></section>
+  <section class="view" id="v-places"></section>
+  <section class="view" id="v-money"></section>
+  <section class="view" id="v-checklist"></section>
+</main>
+
+<nav class="nav" aria-label="Sections"><div>
+  <a href="#trip" id="nav-trip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 19h19M3 14l6.5-1.5L15 5l2.2.6-2.4 6.3 4.7-1c1.2-.3 2.2.4 2.3 1.2.1.8-.6 1.5-1.6 1.8L4.5 17.2 3 14z"/></svg>Trip</a>
+  <a href="#day-0" id="nav-day"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3v18"/><circle cx="7" cy="6" r="2.2" fill="currentColor"/><circle cx="7" cy="12" r="2.2" fill="currentColor"/><circle cx="7" cy="18" r="2.2" fill="currentColor"/><path d="M12 6h8M12 12h8M12 18h6"/></svg>Days</a>
+  <a href="#places" id="nav-places"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Places</a>
+  <a href="#money" id="nav-money"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 15h2"/></svg>Money</a>
+  <a href="#checklist" id="nav-checklist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="m8 9 2 2 4-4M8 16h8"/></svg>Checklist</a>
+</div></nav>
+
+<div class="zhbox" id="zhbox" role="dialog" aria-modal="true" aria-label="Place name in Chinese">
+  <div class="big" id="zhBig" lang="zh-Hant"></div>
+  <div class="en" id="zhEn"></div>
+  <div class="hint">Show this to your driver or ask a local</div>
+  <button class="btn" id="zhClose" type="button">Close</button>
+</div>
+
+<script>
+/* ================= DATA (from the Taiwan Buddies sheet) ================= */
+var CREW=["Lloyd","Jepoy","Kai","Ellie","Ricca","Jim"];
+var SHEET="https://docs.google.com/spreadsheets/d/1bDLVVRSaTFB4qyqWxfPGwNL1jJRCursmpUY6DPA-QLU/edit?gid=568145730#gid=568145730";
+var L={busSched:"https://www.taiwantrip.com.tw/Frontend/Route/Select_p_en?RouteID=R0007",busOut:"https://cyhg-shop.fontour.com/tour/aGyv?lang=en_US",busBack:"https://alishan.welcometw.com/tour/EAqz?lang=en_US",train:"https://afrch.forest.gov.tw/EN/0000300"};
+
+var FLIGHTS=[
+ {dir:"Going",from:"MNL",fromN:"Manila, Terminal 1",to:"KHH",toN:"Kaohsiung",airline:"AirAsia",no:"Z2 132",date:"Sat, Jan 16, 2027",dep:"3:00 PM",arr:"5:00 PM",term:"T1",ref:null,status:"Fully paid",paid:true,color:"#E3002C"},
+ {dir:"Coming home",from:"TPE",fromN:"Taipei Taoyuan",to:"MNL",toN:"Manila",airline:"Cebu Pacific",no:"5J 311",date:"Mon, Jan 25, 2027",dep:"3:15 AM",arr:"5:50 AM",term:"T1 → T3",ref:null,status:"Booked, unpaid. Pay before Dec 20",paid:false,color:"#0070BD"}
+];
+var HOTELS=[
+ {name:"CU Hotel Kaohsiung",city:"Kaohsiung",in:"Sat, Jan 16",out:"Mon, Jan 18",nights:2,conf:"",pay:"Booked, unpaid. Pay at the hotel",total:27793,map:"CU Hotel Kaohsiung",color:"#F5A01A"},
+ {name:"Hotel Puri Ximen Branch",city:"Taipei, Ximending",in:"Mon, Jan 18",out:"Sun, Jan 24",nights:6,conf:"",pay:"Booked, unpaid. Pay at the hotel",total:68719,addr:"No. 116, Hanzhong Street",zh:"台北市萬華區漢中街116號",map:"Hotel Puri Ximen No. 116 Hanzhong Street Taipei",color:"#8246AF"}
+];
+
+// sg = suggested by Claude (not in sheet), t = time to confirm
+var DAYS=[
+ {date:"2027-01-16",title:"Arrival in Kaohsiung",color:"#E3002C",sleep:"CU Hotel Kaohsiung",route:["Manila","Kaohsiung Airport","Kaohsiung Station"],
+  stops:[
+   {s:"11:00",e:"14:00",title:"Manila airport: check in",note:"NAIA Terminal 1. Travel tax and immigration."},
+   {s:"15:00",e:"17:00",title:"Flight Z2 132 to Kaohsiung",note:"AirAsia, lands 5:00 PM. Buy an EasyCard at the airport MRT station after immigration."},
+   {s:"18:00",e:"19:00",title:"Airport MRT (R4) → Kaohsiung Station (R11)",zh:"高雄國際機場站",map:"Kaohsiung International Airport MRT Station",note:"Red Line toward Gangshan. Stay on past Formosa Boulevard (R10) and get off at Kaohsiung Main Station (R11). No transfer needed, about 25 minutes."},
+   {s:"19:30",e:"23:00",title:"Check in at CU Hotel, dinner, rest",map:"CU Hotel Kaohsiung",note:"Stay near Kaohsiung Station."}
+  ]},
+ {date:"2027-01-17",title:"Kaohsiung, Cijin and night market",color:"#F5A01A",sleep:"CU Hotel Kaohsiung",route:["Kaohsiung","Pier-2","Cijin","Night market"],
+  stops:[
+   {s:"08:00",e:"12:00",title:"Breakfast and Kaohsiung city tour",items:["Dome of Light, Formosa Boulevard Station","Lotus Pond, Dragon and Tiger Pagodas"],itemsSugg:1,zh:"蓮池潭",map:"Lotus Pond Kaohsiung"},
+   {s:"12:00",e:"13:00",title:"Lunch"},
+   {s:"13:00",e:"14:00",title:"Pier-2 Art Center and Hamasen",zh:"駁二藝術特區",map:"Pier-2 Art Center",note:"Nearest station: Hamasen."},
+   {s:"14:00",e:"19:00",title:"Cijin Island",zh:"旗津",map:"Gushan Ferry Pier Kaohsiung",note:"Walk from Hamasen to Gushan Ferry Pier and ride the ferry across. Seafood street, beach and lighthouse. Ferry back by early evening."},
+   {s:"19:30",e:"22:00",title:"Night market",sg:1,zh:"瑞豐夜市",map:"Ruifeng Night Market",note:"The sheet says “Market.” Ruifeng is open on Sundays (Kaohsiung Arena MRT). Liuhe is the closer, more touristy option."}
+  ]},
+ {date:"2027-01-18",title:"Alishan, then on to Taipei",color:"#2F7D4F",sleep:"Hotel Puri Ximen",route:["Zuoying HSR","Chiayi","Alishan","Taipei"],
+  stops:[
+   {s:"06:00",e:"07:00",title:"Check out → Zuoying HSR",zh:"左營高鐵站",map:"HSR Zuoying Station",note:"Check out of CU Hotel. Bring all luggage."},
+   {s:"07:00",e:"08:00",title:"Zuoying → Chiayi by HSR",t:1,zh:"高鐵嘉義站",map:"HSR Chiayi Station"},
+   {s:"08:00",e:"09:30",title:"Breakfast and luggage storage",note:"Store luggage at Chiayi HSR. Have breakfast and get bus tickets ready."},
+   {s:"09:30",e:"12:00",title:"Bus 7329 to Alishan",t:1,note:"Exit 2, Platform 7. Keep the bus ticket for the park entrance discount.",link:["Bus reservation",L.busOut]},
+   {s:"12:00",e:"12:45",title:"Alishan Forest Recreation Area",zh:"阿里山國家森林遊樂區",map:"Alishan National Forest Recreation Area",note:"Buy entrance tickets, have lunch, buy forest railway tickets."},
+   {s:"13:00",e:"13:06",title:"Alishan → Zhaoping Station",zh:"沼平車站",map:"Zhaoping Station Alishan",note:"Zhaoping Line, NT$100 per person.",link:["Train schedule",L.train]},
+   {s:"13:06",e:"15:00",title:"Walk Zhaoping → Shenmu",zh:"姊妹潭",map:"Sister Ponds Alishan",items:["Zhaoping Park","Sister Ponds","Three Generation Tree","Shouzhen Temple","Giant Tree Trail","Shenmu Station"]},
+   {s:"15:20",e:"15:27",title:"Shenmu → Alishan Station",zh:"神木車站",map:"Shenmu Station Alishan",note:"Shenmu Line, NT$100 per person."},
+   {s:"15:30",e:"16:30",title:"Alishan bus terminal",note:"Near 7-Eleven. Free time for snacks and souvenirs."},
+   {s:"16:30",e:"19:00",title:"Bus 7329 back to Chiayi HSR",t:1,link:["Return bus reservation",L.busBack]},
+   {s:"19:00",e:"20:00",title:"Dinner and luggage pickup"},
+   {s:"20:00",e:"21:30",title:"Chiayi → Taipei by HSR",t:1,zh:"台北車站",map:"Taipei Main Station"},
+   {s:"21:30",e:"22:00",title:"Check in at Hotel Puri Ximen",zh:"台北市萬華區漢中街116號",map:"Hotel Puri Ximen No. 116 Hanzhong Street Taipei"}
+  ]},
+ {date:"2027-01-19",title:"Old Taipei and Shilin",color:"#0070BD",sleep:"Hotel Puri Ximen",route:["Ximending","Longshan Temple","CKS Memorial Hall","Din Tai Fung","Shilin"],
+  stops:[
+   {s:"07:00",e:"08:00",title:"Breakfast in Ximending",zh:"西門町",map:"Ximending Taipei"},
+   {s:"08:15",e:"09:15",title:"Longshan Temple",zh:"龍山寺",map:"Lungshan Temple Taipei",note:"One MRT stop from Ximen on the Blue Line."},
+   {s:"09:45",e:"11:30",title:"Chiang Kai-shek Memorial Hall",zh:"中正紀念堂",map:"Chiang Kai-shek Memorial Hall",note:"Changing of the guard every hour on the hour."},
+   {s:"11:45",e:"13:15",title:"Lunch at Din Tai Fung",zh:"鼎泰豐",map:"Din Tai Fung Xinyi Road Taipei",note:"The original branch on Xinyi Road is near Dongmen Station, one stop from CKS. Expect a wait; get a queue number first."},
+   {s:"13:30",e:"17:30",title:"Taipei sightseeing",items:["Yongkang Street for mango shaved ice","Huashan 1914 Creative Park","Taipei 101 area"],itemsSugg:1},
+   {s:"18:00",e:"22:00",title:"Shilin Night Market",zh:"士林夜市",map:"Shilin Night Market",note:"Jiantan MRT Station (Red Line)."}
+  ]},
+ {date:"2027-01-20",title:"North Coast tour",color:"#008659",sleep:"Hotel Puri Ximen",route:["Heping Geopark","Zhengbin Harbor","Shifen","Jiufen"],
+  note:"Booked as a North Coast tour, so pickup and times follow the tour.",
+  stops:[
+   {s:"08:00",e:"10:30",title:"Heping Island Geopark",sg:1,t:1,zh:"和平島地質公園",map:"Heping Island Geopark Keelung",note:"Entrance is listed separately in the expenses."},
+   {s:"10:30",e:"11:30",title:"Zhengbin Fishing Harbor",sg:1,t:1,zh:"正濱漁港",map:"Zhengbin Fishing Harbor Keelung",note:"Colorful harbor houses, good photo stop."},
+   {s:"11:30",e:"12:30",title:"Tioashi",sg:1,t:1,note:"Written as “Tioashi” in the sheet. Check with the tour which stop this is."},
+   {s:"13:00",e:"15:30",title:"Shifen Waterfall and sky lanterns",sg:1,t:1,zh:"十分瀑布",map:"Shifen Waterfall",note:"Release a sky lantern on Shifen Old Street."},
+   {s:"16:00",e:"19:30",title:"Jiufen Old Street",sg:1,t:1,zh:"九份老街",map:"Jiufen Old Street",note:"Lanterns light up around sunset, about 5:20 PM. Taro balls and peanut ice cream rolls."}
+  ]},
+ {date:"2027-01-21",title:"Wulai and Raohe",color:"#B5822B",sleep:"Hotel Puri Ximen",route:["Wulai","Log cart","Gondola","Raohe"],
+  stops:[
+   {s:"08:30",e:"10:00",title:"Ximen → Wulai",sg:1,zh:"烏來",map:"Wulai Old Street",note:"MRT to Xindian, then Bus 849 to Wulai, about 40 minutes."},
+   {s:"10:00",e:"12:00",title:"Wulai Old Street and log cart",zh:"烏來台車",map:"Wulai Scenic Trolley",note:"The little trolley runs up to Wulai Waterfall."},
+   {s:"12:00",e:"13:00",title:"Lunch in Wulai",sg:1,note:"Try the bamboo-tube rice and wild boar sausage."},
+   {s:"13:00",e:"15:30",title:"Wulai Gondola",zh:"烏來空中纜車",map:"Wulai Gondola Yun Hsien Resort",note:"Cable car from the waterfall across the river."},
+   {s:"15:30",e:"17:00",title:"Back to Taipei",sg:1},
+   {s:"18:00",e:"22:00",title:"Raohe Night Market or Ichiran Ramen",zh:"饒河街觀光夜市",map:"Raohe Street Night Market",note:"Raohe is at Songshan MRT Station (Green Line). Black pepper buns at the entrance."}
+  ]},
+ {date:"2027-01-22",title:"Qingtiangang, hotpot and Tamsui",color:"#D0598B",sleep:"Hotel Puri Ximen",route:["Jiantan","Qingtiangang","Mala hotpot","Tamsui"],
+  stops:[
+   {s:"08:00",e:"09:00",title:"Ximen → Jiantan Station",zh:"劍潭站",map:"Jiantan MRT Station",note:"Red Line. From Jiantan, take Bus S15 up to Qingtiangang."},
+   {s:"09:30",e:"12:30",title:"Qingtiangang Grassland",zh:"擎天崗",map:"Qingtiangang Grassland",note:"Open grassland in Yangmingshan. It’s windy and cold up there in January, so bring a jacket."},
+   {s:"13:30",e:"15:30",title:"Mala hotpot lunch",zh:"馬辣頂級麻辣鴛鴦火鍋",map:"Mala Hot Pot Taipei",note:"All-you-can-eat hotpot. Book a table for 6."},
+   {s:"16:00",e:"20:00",title:"Tamsui",zh:"淡水老街",map:"Tamsui Old Street",note:"Red Line to the end at Tamsui. Old street, riverside walk and sunset around 5:25 PM."}
+  ]},
+ {date:"2027-01-23",title:"Beitou, Pokémon Center, Fulong, birthday dinner",color:"#0098A6",sleep:"Hotel Puri Ximen",route:["Beitou","Pokémon Center","Fulong Beach","Hooters"],
+  note:"Packed day: Fulong Beach is about 1.5 hours each way from Taipei. Consider dropping one stop so you’re not late for Ricca’s birthday dinner.",
+  stops:[
+   {s:"08:30",e:"11:00",title:"Beitou",zh:"北投",map:"Beitou Thermal Valley",note:"Xinbeitou MRT Station. Thermal Valley and the Hot Spring Museum."},
+   {s:"11:30",e:"13:00",title:"Pokémon Center Taipei",zh:"寶可夢中心",map:"Pokémon Center Taipei",note:"Inside Mitsukoshi Mall."},
+   {s:"13:30",e:"17:30",title:"Fulong Beach",zh:"福隆海水浴場",map:"Fulong Beach",note:"Train to Fulong Station. Bring a light jacket; the beach is breezy in January."},
+   {s:"19:00",e:"22:00",title:"Hooters for Ricca’s birthday",map:"Hooters Taipei",note:"Reserve a table for 6 ahead of time."}
+  ]},
+ {date:"2027-01-24",title:"Last day and departure",color:"#5A6672",route:["Ximen","Taoyuan Airport","Manila"],
+  note:"The flight leaves Mon, Jan 25 at 3:15 AM. Plan to be at Taoyuan Airport by about midnight, and catch the Airport MRT before the last train.",
+  stops:[
+   {s:"10:00",e:"12:00",title:"Check out of Hotel Puri Ximen",sg:1,note:"Ask the front desk to hold luggage for the day."},
+   {s:"12:00",e:"20:00",title:"Free day and pasalubong",sg:1,note:"Pineapple cakes and snacks around Ximending and Taipei Main Station."},
+   {s:"20:00",e:"21:30",title:"Last dinner and luggage pickup",sg:1},
+   {s:"21:30",e:"22:30",title:"Airport MRT → Taoyuan Airport",sg:1,t:1,zh:"桃園國際機場",map:"Taipei Main Station Airport MRT A1",note:"From Taipei Main (A1), about 40 minutes to Terminal 1. Check the last train time; a taxi is the backup."},
+   {s:"03:15",e:"05:50",title:"Mon, Jan 25: Flight 5J 311 to Manila",note:"Cebu Pacific, Terminal 1. Lands in Manila at 5:50 AM.",next:1}
+  ]}
+];
+
+var EXP={
+ flights:{label:"Flights",color:"#E3002C",items:[
+  ["MNL → KHH, AirAsia",6,4865.33,29192.00,"Fully paid","Pay before Oct 24"],
+  ["TPE → MNL, Cebu Pacific",6,7773.99,46643.93,"Booked, unpaid","Pay before Dec 20"]]},
+ lodging:{label:"Hotels",color:"#8246AF",items:[
+  ["CU Hotel Kaohsiung",6,4632.17,27793.00,"Booked, unpaid","Pay at the hotel"],
+  ["Hotel Puri Ximen",6,11453.17,68719.00,"Booked, unpaid","Pay at the hotel"]]},
+ activities:{label:"Activities and transport",color:"#008659",items:[
+  ["Travel tax",6,1600,9600,"",""],
+  ["Gushan ferry",6,70,420,"Pending",""],
+  ["Alishan bus",6,500,3000,"Pending",""],
+  ["HSR Kaohsiung–Chiayi, round trip",3,1334,4002,"Pending","3 pairs for 6, discounted"],
+  ["HSR Kaohsiung–Taipei",3,1223,3669,"Pending","3 pairs for 6, discounted"],
+  ["North Coast tour",6,2300,14000,"Pending","6 × 2,300 is 13,800; sheet total says 14,000"],
+  ["Heping Geopark",6,126,756,"Pending",""],
+  ["Wulai log cart",6,210,1260,"Pending",""],
+  ["Wulai Gondola",3,1153,3459,"Pending","3 pairs for 6, discounted"]]}
+};
+var PAYMENTS=[
+ {date:"Sep 9, 2026",what:"Flight to Kaohsiung (AirAsia)",amt:29193,by:"Lloyd",share:4865.50,note:"Everyone has paid Lloyd back (Sep 25 to Oct 21)."},
+ {date:"Nov 6, 2026",what:"Flight home (Cebu Pacific)",amt:46643.93,by:"Ellie",share:7773.99,note:"₱7,773.99 each, owed to Ellie."}
+];
+var BALANCES=[
+ ["Lloyd",-7773.99],["Jepoy",-7773.99],["Kai",-7773.99],["Ellie",38869.94],["Ricca",-7773.99],["Jim",-7773.99]
+];
+
+var CHECK=[
+ {g:"Travel documents",items:[["Passport"],["Round-trip tickets"],["Round-trip luggage check-in"],["Round-trip seat selection"],["Travel tax"],["eTravel registration"],["Travel insurance"],["COE, client contract, pay slips or invoices"],["Company ID"],["Statement of account"],["Flight itinerary printout"],["Online check-in"],["Hotel booking"]]},
+ {g:"Personal care and meds",items:[["Toothbrush and toothpaste"],["Skincare and toiletries"],["Sunscreen"],["Makeup"],["Deodorant"],["Meds","Hydrite, paracetamol, antimotility, antihistamine, antacid, anti-nausea, probiotics"]]},
+ {g:"Bookings to confirm",items:[["Book HSR Zuoying → Chiayi and Chiayi → Taipei","For Jan 18. Times are still tentative"],["Book Bus 7329 both ways","9:30 AM up, 4:30 PM down (tentative)"],["Confirm lockers at Chiayi HSR"],["Plan the Sunday-night airport trip","Flight is Mon, Jan 25 at 3:15 AM"],["Reserve Hooters for Ricca’s birthday","Sat, Jan 23"],["Pack warm jackets","Alishan and Qingtiangang are cold in January"],["Get an EasyCard or iPASS","At Kaohsiung Airport MRT"]]}
+];
+
+var PLACES=[
+ {city:"Kaohsiung",color:"#F5A01A",list:[
+  ["Kaohsiung Main Station","高雄車站","Kaohsiung Main Station","Sat 16"],["Lotus Pond","蓮池潭","Lotus Pond Kaohsiung","Sun 17"],["Pier-2 Art Center","駁二藝術特區","Pier-2 Art Center","Sun 17"],["Gushan Ferry Pier","鼓山輪渡站","Gushan Ferry Pier","Sun 17"],["Cijin Island","旗津","Cijin Island","Sun 17"],["Ruifeng Night Market","瑞豐夜市","Ruifeng Night Market","Sun 17"],["Zuoying HSR Station","左營高鐵站","HSR Zuoying Station","Mon 18"]]},
+ {city:"Chiayi and Alishan",color:"#2F7D4F",list:[
+  ["Chiayi HSR Station","高鐵嘉義站","HSR Chiayi Station","Mon 18"],["Alishan Forest Recreation Area","阿里山國家森林遊樂區","Alishan National Forest Recreation Area","Mon 18"],["Zhaoping Station","沼平車站","Zhaoping Station Alishan","Mon 18"],["Sister Ponds","姊妹潭","Sister Ponds Alishan","Mon 18"],["Shenmu Station","神木車站","Shenmu Station Alishan","Mon 18"]]},
+ {city:"Taipei",color:"#0070BD",list:[
+  ["Hotel Puri Ximen","台北市萬華區漢中街116號","Hotel Puri Ximen No. 116 Hanzhong Street Taipei","Base"],["Ximending","西門町","Ximending Taipei","Tue 19"],["Longshan Temple","龍山寺","Lungshan Temple Taipei","Tue 19"],["Chiang Kai-shek Memorial Hall","中正紀念堂","Chiang Kai-shek Memorial Hall","Tue 19"],["Din Tai Fung, Xinyi Road","鼎泰豐","Din Tai Fung Xinyi Road Taipei","Tue 19"],["Shilin Night Market","士林夜市","Shilin Night Market","Tue 19"],["Raohe Night Market","饒河街觀光夜市","Raohe Street Night Market","Thu 21"],["Ichiran Ramen","一蘭拉麵","Ichiran Ramen Taipei","Thu 21"],["Qingtiangang Grassland","擎天崗","Qingtiangang Grassland","Fri 22"],["Tamsui Old Street","淡水老街","Tamsui Old Street","Fri 22"],["Beitou Thermal Valley","北投地熱谷","Beitou Thermal Valley","Sat 23"],["Pokémon Center Taipei","寶可夢中心","Pokémon Center Taipei","Sat 23"],["Hooters Taipei",null,"Hooters Taipei","Sat 23"],["Taoyuan Airport","桃園國際機場","Taoyuan International Airport","Sun 24"]]},
+ {city:"Day trips",color:"#008659",list:[
+  ["Heping Island Geopark","和平島地質公園","Heping Island Geopark Keelung","Wed 20"],["Zhengbin Fishing Harbor","正濱漁港","Zhengbin Fishing Harbor","Wed 20"],["Shifen Waterfall","十分瀑布","Shifen Waterfall","Wed 20"],["Jiufen Old Street","九份老街","Jiufen Old Street","Wed 20"],["Wulai Old Street","烏來老街","Wulai Old Street","Thu 21"],["Wulai Gondola","烏來空中纜車","Wulai Gondola","Thu 21"],["Fulong Beach","福隆海水浴場","Fulong Beach","Sat 23"]]}
+];
+
+/* ================= HELPERS ================= */
+var WK=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],MO=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;}
+function fmt(t){var p=t.split(":"),h=+p[0];var ap=h>=12?"PM":"AM";h=h%12||12;return h+":"+p[1]+" "+ap;}
+function mins(t){var p=t.split(":");return +p[0]*60+ +p[1];}
+function dt(iso){return new Date(iso+"T00:00:00Z");}
+function dateLabel(iso){var d=dt(iso);return WK[d.getUTCDay()]+", "+MO[d.getUTCMonth()]+" "+d.getUTCDate();}
+function peso(n){return "₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function sum(a){return a.reduce(function(s,x){return s+x[3];},0);}
+function mapUrl(q){return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);}
+function taipeiNow(){var o={};new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).forEach(function(p){o[p.type]=p.value;});return {date:o.year+"-"+o.month+"-"+o.day,min:(+o.hour)*60+(+o.minute)};}
+function dayDiff(a,b){return Math.round((Date.parse(b+"T00:00:00Z")-Date.parse(a+"T00:00:00Z"))/86400000);}
+var PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+var EXT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+var BED='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg>';
+function mapBtn(q,label){var a=el("a","btn");a.href=mapUrl(q);a.target="_blank";a.rel="noopener";a.innerHTML=PIN;a.appendChild(document.createTextNode(label||"Map"));return a;}
+function zhBtn(zh,en){var b=el("button","btn");b.type="button";b.lang="zh-Hant";b.setAttribute("aria-label","Show "+en+" in Chinese, full screen");b.appendChild(el("span","zh",zh));b.addEventListener("click",function(){openZh(zh,en);});return b;}
+function extBtn(label,url){var a=el("a","btn");a.href=url;a.target="_blank";a.rel="noopener";a.innerHTML=EXT;a.appendChild(document.createTextNode(label));return a;}
+function revealBtn(label,val){var b=el("button","btn");b.type="button";var t=el("span","reveal",label+": ••••");b.appendChild(t);var on=false;b.addEventListener("click",function(){on=!on;t.textContent=label+": "+(on?val:"••••");});return b;}
+function sec(parent,title,lead){var s=el("div","sec");s.appendChild(el("h2",null,title));if(lead)s.appendChild(el("p","lead",lead));parent.appendChild(s);return s;}
+function warnBox(title,text){var w=el("div","warn");w.appendChild(el("b",null,title));w.appendChild(document.createTextNode(text));return w;}
+
+var NOW=taipeiNow(),START=DAYS[0].date;
+var todayIdx=DAYS.findIndex(function(d){return d.date===NOW.date;});
+
+/* ================= HEADER ================= */
+(function(){var c=document.getElementById("count"),left=dayDiff(NOW.date,START);
+ if(left>0){c.appendChild(el("b",null,String(left)));c.appendChild(el("span",null,left===1?"day to go":"days to go"));}
+ else if(todayIdx>=0){c.appendChild(el("b",null,"Day "+todayIdx));c.appendChild(el("span",null,"of 8"));}
+ else{c.appendChild(el("b",null,"✓"));c.appendChild(el("span",null,"Trip done"));}})();
+
+/* ================= TRIP (overview) ================= */
+(function(){
+ var v=document.getElementById("v-trip");
+ if(todayIdx>=0){var d=DAYS[todayIdx],cur=null,nx=null;d.stops.forEach(function(s){if(s.next)return;if(NOW.min>=mins(s.s)&&NOW.min<mins(s.e))cur=s;else if(!nx&&mins(s.s)>NOW.min)nx=s;});
+  var b=el("a","box now");b.href="#day-"+todayIdx;b.style.display="block";b.style.textDecoration="none";b.appendChild(el("div","lbl","Today, "+dateLabel(d.date)));b.appendChild(el("div","what",cur?"Now: "+cur.title:(nx?"Free time":"Done for today")));if(nx)b.appendChild(el("div","next","Next at "+fmt(nx.s)+": "+nx.title));v.appendChild(b);}
+ v.appendChild(warnBox("Late-night departure","The flight home leaves Mon, Jan 25 at 3:15 AM, so we head to the airport on Sunday night after a full last day. Hotel checkout is Sunday morning."));
+
+ var s=sec(v,"Flights");
+ FLIGHTS.forEach(function(f){
+  var p=el("div","pass");var band=el("div","band");band.style.background=f.color;band.appendChild(el("span",null,f.dir));band.appendChild(el("span",null,f.airline+" "+f.no));p.appendChild(band);
+  var m=el("div","main");var a=el("div","iata",f.from);a.appendChild(el("small",null,f.fromN));m.appendChild(a);
+  var pl=el("div","plane");pl.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 15.5v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V8.5l-8 5v2l8-2.5V18l-2 1.5V21l3.5-1 3.5 1v-1.5L13 18v-5z" transform="rotate(90 12 12)"/></svg>';m.appendChild(pl);
+  var b=el("div","iata to",f.to);b.appendChild(el("small",null,f.toN));m.appendChild(b);p.appendChild(m);
+  var fa=el("div","facts");[["Date",f.date],["Departs",f.dep],["Arrives",f.arr],["Terminal",f.term],["Flight",f.no],["Airline",f.airline]].forEach(function(x){var d=el("div","fact");d.appendChild(el("span",null,x[0]));d.appendChild(el("b",null,x[1]));fa.appendChild(d);});p.appendChild(fa);
+  var ft=el("div","foot");ft.appendChild(el("span","tag "+(f.paid?"paid":"unpaid"),f.status));if(f.warn)ft.appendChild(el("span","tag unpaid","Date to confirm"));if(f.ref)ft.appendChild(revealBtn("Booking",f.ref));p.appendChild(ft);
+  s.appendChild(p);
+ });
+
+ s=sec(v,"Hotels");
+ HOTELS.forEach(function(h){
+  var c=el("div","hotel");c.style.setProperty("--c",h.color);c.appendChild(el("div","city",h.city));c.appendChild(el("h3",null,h.name));
+  if(h.addr)c.appendChild(el("div","muted",h.addr));
+  var st=el("div","stay");var i=el("div");i.appendChild(el("span",null,"Check in"));i.appendChild(el("b",null,h.in));st.appendChild(i);st.appendChild(el("div","nights",h.nights+" nights"));var o=el("div");o.appendChild(el("span",null,"Check out"));o.appendChild(el("b",null,h.out));st.appendChild(o);c.appendChild(st);
+  var tg=el("div","tags");tg.appendChild(el("span","tag unpaid",h.pay));tg.appendChild(el("span","tag",peso(h.total)+" total"));c.appendChild(tg);
+  var ac=el("div","acts");ac.appendChild(mapBtn(h.map));if(h.zh)ac.appendChild(zhBtn(h.zh,h.name));if(h.conf)ac.appendChild(revealBtn("Confirmation",h.conf));c.appendChild(ac);
+  s.appendChild(c);
+ });
+
+ s=sec(v,"The week","Tap a day to see the full schedule.");
+ var ul=el("ul","week");
+ DAYS.forEach(function(d,i){var li=el("li"),a=el("a");a.href="#day-"+i;a.style.setProperty("--c",d.color);var w=el("div","wd",WK[dt(d.date).getUTCDay()]);w.appendChild(el("b",null,String(dt(d.date).getUTCDate())));a.appendChild(w);var t=el("div");t.appendChild(el("div","t",(i===0?"Arrival: ":"Day "+i+": ")+d.title));t.appendChild(el("div","s",d.route.join(", ")));a.appendChild(t);li.appendChild(a);ul.appendChild(li);});
+ s.appendChild(ul);
+
+ s=sec(v,"Who’s going");var cw=el("div","crew");CREW.forEach(function(n){cw.appendChild(el("span",null,n));});s.appendChild(cw);
+ s=sec(v,"Source");var lk=el("ul","links");var li=el("li"),a=el("a");a.href=SHEET;a.target="_blank";a.rel="noopener";a.textContent="Open the Taiwan Buddies Google Sheet";a.appendChild(el("span",null,"This page was built from it on Nov 25, 2026. Edits in the sheet don’t show here automatically."));li.appendChild(a);lk.appendChild(li);s.appendChild(lk);
+})();
+
+/* ================= DAYS ================= */
+var rail=document.getElementById("rail");
+DAYS.forEach(function(d,i){var a=el("a","stn");a.href="#day-"+i;a.style.setProperty("--c",d.color);a.dataset.i=i;
+ a.setAttribute("aria-label",dateLabel(d.date)+", "+d.title);
+ a.appendChild(el("span","wk",i===todayIdx?"Today":WK[dt(d.date).getUTCDay()]));a.appendChild(el("span","code",String(dt(d.date).getUTCDate())));a.appendChild(el("span","d",i===0?"Arrive":"Day "+i));rail.appendChild(a);});
+
+function renderDay(i){
+ var d=DAYS[i],v=document.getElementById("v-day");v.textContent="";v.style.setProperty("--c",d.color);
+ var h=el("div","dayhead");h.appendChild(el("div","no",i===0?"Arrival":"Day "+i));h.appendChild(el("h2",null,d.title));h.appendChild(el("div","date",dateLabel(d.date)));
+ var r=el("ul","route");d.route.forEach(function(x){r.appendChild(el("li",null,x));});h.appendChild(r);
+ if(d.sleep){var sl=el("div","sleep");sl.innerHTML=BED;sl.appendChild(document.createTextNode("Tonight: "+d.sleep));h.appendChild(sl);}
+ if(d.note)h.appendChild(warnBox("Heads up",d.note));
+ var hasS=d.stops.some(function(s){return s.sg||s.itemsSugg;});
+ var lg=el("div","legend");var a=el("span");a.appendChild(el("i"));a.appendChild(document.createTextNode("From the sheet"));lg.appendChild(a);
+ if(hasS){var b=el("span");b.appendChild(el("i","s"));b.appendChild(document.createTextNode("Suggested, not in the sheet"));lg.appendChild(b);}
+ h.appendChild(lg);v.appendChild(h);
+ var tl=el("ol","tl");
+ d.stops.forEach(function(s){
+  var li=el("li","stop"+(s.sg?" sugg":""));var live=false,done=false;
+  if(i===todayIdx&&!s.next){live=NOW.min>=mins(s.s)&&NOW.min<mins(s.e);done=NOW.min>=mins(s.e);}else if(todayIdx>i)done=true;
+  if(live)li.classList.add("live");if(done)li.classList.add("done");
+  var ln=el("div","line");ln.appendChild(el("span","dot"));li.appendChild(ln);
+  var c=el("div","card");var w=el("div","when",fmt(s.s)+" – "+fmt(s.e));if(s.next)w.appendChild(el("small",null,"Monday early morning"));c.appendChild(w);c.appendChild(el("h3",null,s.title));
+  var tg=el("div","tags");if(live)tg.appendChild(el("span","tag n","Happening now"));if(s.sg)tg.appendChild(el("span","tag s","Suggested"));if(s.t)tg.appendChild(el("span","tag t","Time to confirm"));if(tg.childNodes.length)c.appendChild(tg);
+  if(s.items||s.note){var dd=el("div","detail");if(s.note){var np=el("p",null,s.note);np.style.marginTop="0";dd.appendChild(np);}if(s.items){var ip=el("p",null,s.itemsSugg?"Ideas:":"Route:");if(!s.note)ip.style.marginTop="0";dd.appendChild(ip);var ul=el("ul");s.items.forEach(function(x){ul.appendChild(el("li",null,x));});dd.appendChild(ul);}c.appendChild(dd);}
+  var ac=el("div","acts");if(s.map)ac.appendChild(mapBtn(s.map));if(s.zh)ac.appendChild(zhBtn(s.zh,s.title));if(s.link)ac.appendChild(extBtn(s.link[0],s.link[1]));if(ac.childNodes.length)c.appendChild(ac);
+  li.appendChild(c);tl.appendChild(li);
+ });
+ v.appendChild(tl);
+ if(i===2){var s2=sec(v,"Alishan links");var lk=el("ul","links");[["Alishan bus schedules",L.busSched],["Outbound bus reservation",L.busOut],["Alishan → Chiayi HSR bus",L.busBack],["Alishan train schedule",L.train]].forEach(function(x){var li=el("li"),a=el("a");a.href=x[1];a.target="_blank";a.rel="noopener";a.textContent=x[0];a.appendChild(el("span",null,x[1].replace(/^https?:\/\//,"").split("?")[0]));li.appendChild(a);lk.appendChild(li);});s2.appendChild(lk);
+  s2.appendChild(warnBox("From the sheet’s notes","Book buses and HSR ahead for the group. The Alishan walk takes about 2 hours. Confirm locker availability at Chiayi HSR."));}
+}
+
+/* ================= PLACES ================= */
+(function(){
+ var v=document.getElementById("v-places");var h=el("div","sec");h.appendChild(el("h2",null,"Places and landmarks"));h.appendChild(el("p","lead","Everything on the itinerary, by area. Tap the Chinese name to show it full screen."));v.appendChild(h);
+ PLACES.forEach(function(g){var c=el("div","city");var t=el("h3");var i=el("i");i.style.background=g.color;t.appendChild(i);t.appendChild(document.createTextNode(g.city));c.appendChild(t);
+  var ul=el("ul","plist");g.list.forEach(function(p){var li=el("li","place");var d=el("div");d.appendChild(el("b",null,p[0]));if(p[1]){var z=el("div","zhn",p[1]);z.lang="zh-Hant";d.appendChild(z);}d.appendChild(el("div","when",p[3]));li.appendChild(d);
+   var pa=el("div","pa");if(p[1]){var zb2=el("button","btn");zb2.type="button";zb2.setAttribute("aria-label","Show "+p[0]+" in Chinese, full screen");zb2.appendChild(el("span","zh","中文"));zb2.addEventListener("click",function(){openZh(p[1],p[0]);});pa.appendChild(zb2);}var mb=mapBtn(p[2],"Map");mb.setAttribute("aria-label","Open "+p[0]+" in Google Maps");pa.appendChild(mb);li.appendChild(pa);ul.appendChild(li);});
+  c.appendChild(ul);v.appendChild(c);});
+})();
+
+/* ================= MONEY ================= */
+(function(){
+ var v=document.getElementById("v-money");var h=el("div","sec");h.appendChild(el("h2",null,"Expenses"));h.appendChild(el("p","lead","Group totals for 6 people, in pesos, as listed in the sheet."));v.appendChild(h);
+ var keys=["flights","lodging","activities"],tot={},grand=0;keys.forEach(function(k){tot[k]=sum(EXP[k].items);grand+=tot[k];});
+ var t=el("div","totals");var g=el("div","tot big");g.appendChild(el("span",null,"Trip total"));g.appendChild(el("b",null,peso(grand)));g.appendChild(el("span",null,"About "+peso(grand/6)+" per person"));t.appendChild(g);
+ keys.forEach(function(k){var d=el("div","tot");d.appendChild(el("span",null,EXP[k].label));d.appendChild(el("b",null,peso(tot[k])));t.appendChild(d);});
+ var paid=EXP.flights.items[0][3];var dpd=el("div","tot");dpd.appendChild(el("span",null,"Already paid"));dpd.appendChild(el("b",null,peso(paid)));t.appendChild(dpd);
+ h.appendChild(t);
+ var sp=el("div","split");keys.forEach(function(k){var d=el("div");d.style.width=(tot[k]/grand*100)+"%";d.style.background=EXP[k].color;sp.appendChild(d);});h.appendChild(sp);
+ var ky=el("div","keys");keys.forEach(function(k){var s=el("span");var i=el("i");i.style.background=EXP[k].color;s.appendChild(i);s.appendChild(document.createTextNode(EXP[k].label+" "+Math.round(tot[k]/grand*100)+"%"));ky.appendChild(s);});h.appendChild(ky);
+
+ keys.forEach(function(k){var s=sec(v,EXP[k].label);var ul=el("ul","exp");
+  EXP[k].items.forEach(function(x){var li=el("li");li.appendChild(el("div","nm",x[0]));li.appendChild(el("div","amt",peso(x[3])));li.appendChild(el("div","sub",x[1]+" × "+peso(x[2])));li.appendChild(el("div","pp",peso(x[3]/6)+" each"));
+   var tg=el("div","tg");if(x[4])tg.appendChild(el("span","tag "+(x[4]==="Fully paid"?"paid":(x[4].indexOf("unpaid")>-1?"unpaid":"")),x[4]));if(x[5])tg.appendChild(el("span","tag",x[5]));if(tg.childNodes.length)li.appendChild(tg);ul.appendChild(li);});
+  var tl=el("li","total");tl.appendChild(el("div","nm","Total"));tl.appendChild(el("div","amt",peso(tot[k])));tl.appendChild(el("div","sub",""));tl.appendChild(el("div","pp",peso(tot[k]/6)+" each"));ul.appendChild(tl);
+  s.appendChild(ul);});
+
+ var s=sec(v,"Who paid for what","From the Payments tab.");var ul=el("ul","exp");
+ PAYMENTS.forEach(function(p){var li=el("li");li.appendChild(el("div","nm",p.what));li.appendChild(el("div","amt",peso(p.amt)));li.appendChild(el("div","sub",p.date+", paid by "+p.by));li.appendChild(el("div","pp",peso(p.share)+" each"));var tg=el("div","tg");tg.appendChild(el("span","tag",p.note));li.appendChild(tg);ul.appendChild(li);});
+ s.appendChild(ul);
+ s=sec(v,"Balances","As shown in the Payments tab right now.");var bl=el("ul","bal");
+ BALANCES.forEach(function(b){var li=el("li");li.appendChild(el("div","who",b[0]));li.appendChild(el("div","st "+(b[1]<0?"owe":"get"),(b[1]<0?"Owes ":"Gets back ")+peso(Math.abs(b[1]))));if(b[1]<0)li.appendChild(el("div","sub","To Ellie, for the flight home"));bl.appendChild(li);});
+ s.appendChild(bl);
+ s.appendChild(warnBox("Two numbers to double-check","The North Coast tour total says ₱14,000, but 6 × ₱2,300 is ₱13,800. The PH travel tax for economy is ₱1,620 (the older tab has this), not ₱1,600."));
+})();
+
+/* ================= CHECKLIST ================= */
+var KEY="twbuddies-check-v2",state={};try{state=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){state={};}
+(function(){
+ var v=document.getElementById("v-checklist");var h=el("div","sec");h.appendChild(el("h2",null,"Pre-travel checklist"));h.appendChild(el("p","lead","Ticks are saved on this phone only, so each of us keeps our own list."));
+ var pr=el("div","progress");var bar=el("div");pr.appendChild(bar);h.appendChild(pr);var cnt=el("div","muted");cnt.style.fontSize="13px";h.appendChild(cnt);v.appendChild(h);
+ var all=[];
+ function prog(){var n=all.filter(function(k){return state[k];}).length;bar.style.width=(n/all.length*100)+"%";cnt.textContent=n+" of "+all.length+" done";}
+ CHECK.forEach(function(g,gi){var s=sec(v,g.g);var ul=el("ul","check");
+  g.items.forEach(function(it,ii){var k=gi+"-"+ii;all.push(k);var li=el("li"),lb=el("label"),cb=el("input");cb.type="checkbox";cb.checked=!!state[k];
+   cb.addEventListener("change",function(){state[k]=cb.checked;try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}prog();});
+   var sp=el("span",null,it[0]);if(it[1])sp.appendChild(el("small",null,it[1]));lb.appendChild(cb);lb.appendChild(sp);li.appendChild(lb);ul.appendChild(li);});
+  s.appendChild(ul);});
+ prog();
+})();
+
+/* ================= ZH OVERLAY ================= */
+var zb=document.getElementById("zhbox"),lastF=null;
+function openZh(z,en){lastF=document.activeElement;document.getElementById("zhBig").textContent=z;document.getElementById("zhEn").textContent=en;zb.classList.add("on");document.getElementById("zhClose").focus();}
+function closeZh(){zb.classList.remove("on");if(lastF)lastF.focus();}
+document.getElementById("zhClose").addEventListener("click",closeZh);
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&zb.classList.contains("on"))closeZh();});
+
+/* ================= ROUTING ================= */
+var lastDay=todayIdx>=0?todayIdx:0;
+function route(){
+ var h=(location.hash||"").slice(1),view="trip",di=lastDay,m=/^day-([0-8])$/.exec(h);
+ if(m){view="day";di=+m[1];}else if(["places","money","checklist"].indexOf(h)>-1)view=h;
+ lastDay=di;
+ ["trip","day","places","money","checklist"].forEach(function(x){document.getElementById("v-"+x).classList.toggle("on",x===view);var n=document.getElementById("nav-"+x);if(x===view)n.setAttribute("aria-current","page");else n.removeAttribute("aria-current");});
+ document.getElementById("nav-day").href="#day-"+di;
+ document.getElementById("railWrap").hidden=view!=="day";
+ if(view==="day"){renderDay(di);Array.prototype.forEach.call(rail.children,function(b){b.setAttribute("aria-current",String(+b.dataset.i===di));});var c=rail.children[di];if(c)rail.scrollLeft=c.offsetLeft-rail.clientWidth/2+c.clientWidth/2;}
+ window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);route();
+</script>
+</body>
+</html>
